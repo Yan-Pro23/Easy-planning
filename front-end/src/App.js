@@ -1,9 +1,10 @@
+// src/App.js
 import React from 'react';
-import Planning from './components/Planning';
-
+import Dashboard from './pages/Dashboard';
+import './index.css';
 
 function App() {
-  return <Planning />;
+  return <Dashboard />;
 }
 
 export default App;
