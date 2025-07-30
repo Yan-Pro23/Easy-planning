@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="min-h-screen">
       <Routes>
-        <Route path="/" element={<Navigate to="/register" replace />} />
+        <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/forgot-password" element={

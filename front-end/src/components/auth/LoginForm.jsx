@@ -233,7 +233,7 @@ const LoginForm = () => {
                 </div>
               ) : (
                 'Se connecter'
-              )}o
+              )}
             </button>
           </form>
 
