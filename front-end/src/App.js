@@ -1,5 +1,6 @@
 import React from 'react';
-import Plannings from './components/Plannings';
+import Plannings from './components/Plannings.jsx';
+
 
 function App() {
   return <Plannings />;
