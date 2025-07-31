@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PlanningForm from './PlanningForm'; // Assurez-vous que le chemin est correct
+import PlanningForm from './PlanningForm';
 import DeleteButton from './DeleteButton';
 
 export default function Planning() {
@@ -11,7 +11,7 @@ export default function Planning() {
   useEffect(() => {
     fetch('http://localhost:8000/api/plannings')
       .then(res => res.json())
-      .then(data => setPlanningList(data))
+      .then(data => setPlanningList(data.data)) // ← ici : .data pour extraire les résultats
       .catch(err => console.error('Erreur chargement plannings', err));
   }, []);
 
@@ -38,7 +38,7 @@ export default function Planning() {
         if (!res.ok) throw new Error('Erreur création');
         const newPlanning = await res.json();
         alert('Planning créé avec succès');
-        setPlanningList([...planningList, newPlanning]);
+        setPlanningList([...planningList, newPlanning.data]); // ← ici : .data pour récupérer le planning créé
       }
       setEditingPlanning(null);
       setIsFormVisible(false);
@@ -47,7 +47,6 @@ export default function Planning() {
     }
   };
 
-  // Supprimer et rafraichir liste localement
   const handleDeleted = (id) => {
     setPlanningList(planningList.filter(p => p.id !== id));
     if (editingPlanning && editingPlanning.id === id) {
@@ -56,7 +55,6 @@ export default function Planning() {
     }
   };
 
-  // Ouvrir le formulaire pour ajout ou édition
   const openForm = (planning = null) => {
     setEditingPlanning(planning);
     setIsFormVisible(true);
@@ -91,10 +89,13 @@ export default function Planning() {
                 className="bg-white p-4 rounded shadow flex justify-between items-center"
               >
                 <div>
-                  <p className="font-semibold text-lg">{planning.nom}</p>
+                  <p className="font-semibold text-lg">{planning.title}</p>
                   <p className="text-sm text-gray-600">
-                    Du {planning.date_debut} {planning.heure_debut} au {planning.date_fin} {planning.heure_fin}
+                    Du {planning.start_date} {planning.start_time} au {planning.end_date} {planning.end_time}
                   </p>
+                  <p className="text-sm text-gray-600">Statut: {planning.status}</p>
+                  <p className="text-sm text-gray-600">Lieu: {planning.location}</p>
+                  <p className="text-sm text-gray-600">Participants: {(planning.participants || []).join(', ')}</p>
                 </div>
                 <div className="flex gap-3">
                   <button

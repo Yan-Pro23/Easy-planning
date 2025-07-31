@@ -7,7 +7,7 @@ export default function DeleteButton({ planningId, onDeleted }) {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`http://localhost:8000/api/plannings/${planningId}`);
+      await axios.delete(`http://localhost:8000/api/admin/planning/{id}}`);
       alert('✅ Planning supprimé avec succès !');
       onDeleted();
     } catch (error) {

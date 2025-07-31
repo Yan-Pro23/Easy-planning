@@ -1,9 +1,8 @@
 import React from 'react';
-import Planning from './components/Planning';
-
+import Plannings from './components/Plannings';
 
 function App() {
-  return <Planning />;
+  return <Plannings />;
 }
 
 export default App;
