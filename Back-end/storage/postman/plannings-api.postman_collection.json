@@ -1,0 +1,195 @@
+{
+  "info": {
+    "name": "API Plannings - Admin",
+    "description": "Collection pour tester l'API de gestion des plannings",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "http://127.0.0.1:8000",
+      "value": "http://localhost:8000/api/admin",
+      "type": "string"
+    },
+    {
+      "key": "planning_id",
+      "value": "1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Récupérer tous les plannings",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{http://127.0.0.1:8000}}/plannings?per_page=10&status=active",
+          "host": ["{{http://127.0.0.1:8000}}"],
+          "path": ["plannings"],
+          "query": [
+            {
+              "key": "per_page",
+              "value": "10",
+              "description": "Nombre d'éléments par page"
+            },
+            {
+              "key": "status",
+              "value": "active",
+              "description": "Filtrer par statut (active, inactive, completed)"
+            },
+            {
+              "key": "start_date",
+              "value": "2024-01-01",
+              "description": "Date de début pour filtrer",
+              "disabled": true
+            },
+            {
+              "key": "end_date",
+              "value": "2024-12-31",
+              "description": "Date de fin pour filtrer",
+              "disabled": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "2. Créer un planning",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Réunion équipe développement\",\n  \"description\": \"Réunion hebdomadaire de l'équipe de développement pour faire le point sur les projets en cours\",\n  \"start_date\": \"2024-08-01\",\n  \"end_date\": \"2024-08-01\",\n  \"start_time\": \"09:00\",\n  \"end_time\": \"10:30\",\n  \"status\": \"active\",\n  \"location\": \"Salle de conférence A\",\n  \"participants\": [\"John Doe\", \"Jane Smith\", \"Bob Johnson\"]\n}"
+        },
+        "url": {
+          "raw": "{{http://127.0.0.1:8000}}/plannings",
+          "host": ["{{http://127.0.0.1:8000}}"],
+          "path": ["plannings"]
+        }
+      }
+    },
+    {
+      "name": "3. Récupérer un planning spécifique",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{http://127.0.0.1:8000}}/plannings/{{planning_id}}",
+          "host": ["{{http://127.0.0.1:8000}}"],
+          "path": ["plannings", "{{planning_id}}"]
+        }
+      }
+    },
+    {
+      "name": "4. Modifier un planning (PUT)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Réunion équipe développement - Modifiée\",\n  \"description\": \"Réunion hebdomadaire modifiée avec nouveaux points à l'ordre du jour\",\n  \"start_date\": \"2024-08-01\",\n  \"end_date\": \"2024-08-01\",\n  \"start_time\": \"09:30\",\n  \"end_time\": \"11:00\",\n  \"status\": \"active\",\n  \"location\": \"Salle de conférence B\",\n  \"participants\": [\"John Doe\", \"Jane Smith\", \"Bob Johnson\", \"Alice Brown\"]\n}"
+        },
+        "url": {
+          "raw": "{{http://127.0.0.1:8000}}/plannings/{{planning_id}}",
+          "host": ["{{http://127.0.0.1:8000}}"],
+          "path": ["plannings", "{{planning_id}}"]
+        }
+      }
+    },
+    {
+      "name": "5. Modifier partiellement un planning (PATCH)",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"completed\",\n  \"description\": \"Réunion terminée avec succès\"\n}"
+        },
+        "url": {
+          "raw": "{{http://127.0.0.1:8000}}/plannings/{{planning_id}}",
+          "host": ["{{http://127.0.0.1:8000}}"],
+          "path": ["plannings", "{{planning_id}}"]
+        }
+      }
+    },
+    {
+      "name": "6. Supprimer un planning",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{http://127.0.0.1:8000}}/plannings/{{planning_id}}",
+          "host": ["{{http://127.0.0.1:8000}}"],
+          "path": ["plannings", "{{planning_id}}"]
+        }
+      }
+    }
+  ]
+}
